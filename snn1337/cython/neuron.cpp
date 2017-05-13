@@ -645,7 +645,7 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "snn1337/cython/neuron.pyx",
+  "neuron.pyx",
   "stringsource",
 };
 

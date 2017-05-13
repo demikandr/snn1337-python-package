@@ -43,4 +43,5 @@ output/
 
 # Dist
 dist/
-+**/*.html
+**/*.html
+
