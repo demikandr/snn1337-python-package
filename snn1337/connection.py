@@ -1,4 +1,4 @@
-from snn1337.neuron import *
+from snn1337.cython.neuron import *
 
 class InputNeuron(object):
 

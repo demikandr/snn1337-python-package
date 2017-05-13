@@ -38,8 +38,7 @@ class InputLayer(object):
             neur.step()
 
 class Conv2DLayer(object):
-    # Формат весов: w[nk][h][i][j], где nk - фильтр, h - номер фильтра на предыдущем слое, i, j - координаты весов в фильтре
-    def __init__(self, nnet, input_layer, num_filters, filter_shape, weights):
+    def __init__(self, nnet, input_layer, num_filters, filter_shape, weights, threshold=1.):
         self.net = nnet
         self.filter_shape = filter_shape
         self.weights = self.oldweights = weights.copy() 
@@ -48,10 +47,10 @@ class Conv2DLayer(object):
         
         self.shape = (num_filters, input_layer.shape[1]-filter_shape[0]+1, input_layer.shape[2]-filter_shape[1]+1)
         self.neur_size = reduce(lambda res, x: res*x, self.shape, 1)
-        self.neurons = np.array([Neuron(self.net) for i in np.arange(self.neur_size)]).reshape(self.shape)
+        self.neurons = np.array([Neuron(self.net, threshold=threshold) for i in np.arange(self.neur_size)]).reshape(self.shape)
         
         self.connections = []
-        
+                
         for nk, kernel in enumerate(self.neurons):
             for i, row in enumerate(kernel):
                 for j, neuron in enumerate(row):   # соединяем с предыдущим слоем
@@ -70,12 +69,12 @@ class Conv2DLayer(object):
             neur.step()
 
 class SubSampling2DLayer(object):
-    def __init__(self, nnet, input_layer, pool_size):
+    def __init__(self, nnet, input_layer, pool_size, threshold=1.):
         self.net = nnet
         self.pool_size = pool_size
         self.shape = input_layer.shape // np.append([1], pool_size)
         self.neur_size = reduce(lambda res, x: res*x, self.shape, 1)
-        self.neurons = np.array([Neuron(self.net) for i in np.arange(self.neur_size)]).reshape(self.shape)
+        self.neurons = np.array([Neuron(self.net, threshold=threshold) for i in np.arange(self.neur_size)]).reshape(self.shape)
         
         self.conn_weight = 1 / (pool_size[0] * pool_size[1])
         
@@ -88,7 +87,7 @@ class SubSampling2DLayer(object):
                                                     [self.conn_weight])\
                                          for l in np.arange(input_layer.shape[0]) for p in np.arange(pool_size[0])\
                                          for q in np.arange(pool_size[1])] 
-                    
+                         
     def restart(self):
         for i, neur in enumerate(self.neurons.reshape((self.neur_size))):
             neur.restart()
@@ -135,17 +134,23 @@ class NNet(object):
         self.global_time = 0
         self.threshold = threshold
     
-    def add_convolution(self, weights):
+    def add_convolution(self, weights, threshold=-1):
+        if(threshold == -1):
+            threshold = self.threshold
         num_filters = weights.shape[0]
         filter_shape = weights.shape[2:4]
-        self.layers.append(Conv2DLayer(self, self.layers[-1], num_filters, filter_shape, weights))
+        self.layers.append(Conv2DLayer(self, self.layers[-1], num_filters, filter_shape, weights, threshold=threshold))
         
-    def add_subsampling(self, pool_size):
-        self.layers.append(SubSampling2DLayer(self, self.layers[-1], pool_size))
+    def add_subsampling(self, pool_size, threshold=-1):
+        if(threshold == -1):
+            threshold = self.threshold
+        self.layers.append(SubSampling2DLayer(self, self.layers[-1], pool_size, threshold=threshold))
         
-    def add_dense(self, weights):
+    def add_dense(self, weights, threshold=-1):
+        if(threshold == -1):
+            threshold = self.threshold
         num_units = weights.shape[1]
-        self.layers.append(DenseLayer(self, self.layers[-1], num_units, weights, threshold=self.threshold))
+        self.layers.append(DenseLayer(self, self.layers[-1], num_units, weights, threshold=threshold))
     
     def get_output_for(self, data, t_max):
         self.global_time = 0
@@ -155,7 +160,7 @@ class NNet(object):
         for t in np.arange(t_max):
             #for layer in self.layers:
                 #layer.step()
-            list(map(lambda x: x.step(), self.layers)) # POOL
+            pool1.map(lambda x: x.step(), self.layers)
             self.global_time += 1
         result = [neur.get_spikes() for neur in self.layers[-1].neurons.reshape((self.layers[-1].neur_size))]
         return result
@@ -169,7 +174,7 @@ class NNet(object):
         for t in np.arange(t_max):
             #for layer in self.layers:
                 #layer.step()
-            list(map(lambda x: x.step(), self.layers)) # POOL
+            self.pool.map(lambda x: x.step(), self.layers)
             for i, neur in enumerate(self.layers[-1].neurons):
                 if len(neur.get_spikes()) > 0:
                     ans.append(i)
@@ -180,10 +185,14 @@ class NNet(object):
 
 import lasagne
 
-def spiking_from_lasagne(input_net, threshold):
+import lasagne
+
+def spiking_from_lasagne(input_net, threshold=1.):
     input_layers = lasagne.layers.get_all_layers(input_net)
     weights = lasagne.layers.get_all_param_values(input_net)
     spiking_net = NNet(input_layers[0].shape[-3:], threshold)
+    if(len(threshold) == 1):
+        threshold = np.ones(len(input_layers)-1) * threshold
     convert_layers = {lasagne.layers.conv.Conv2DLayer : spiking_net.add_convolution,\
                       lasagne.layers.dense.DenseLayer : spiking_net.add_dense}
     
@@ -194,7 +203,7 @@ def spiking_from_lasagne(input_net, threshold):
         if(type(l) == lasagne.layers.pool.Pool2DLayer or type(l) == lasagne.layers.pool.MaxPool2DLayer):
             spiking_net.add_subsampling(l.pool_size)
         else:
-            convert_layers[type(l)](weights[i])
+            convert_layers[type(l)](weights[2*i], threshold=threshold[i-1])
             i+=1
-
+            
     return spiking_net
