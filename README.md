@@ -2,7 +2,6 @@ Spiking Neural Network 1337
 ===============================
 
 version number: 0.0.1
-author: Will McGinnis
 
 Overview
 --------

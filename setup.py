@@ -24,7 +24,7 @@ setup(
     long_description=long_description,
     url='https://github.com/demikandr/snn1337',
     download_url='https://github.com/demikandr/snn1337/tarball/' + __version__,
-    license='BSD',
+    license='MIT',
     classifiers=[
       'Development Status :: 3 - Alpha',
       'Intended Audience :: Developers',
@@ -33,7 +33,7 @@ setup(
     keywords='',
     packages=find_packages(exclude=['docs', 'tests*']),
     include_package_data=True,
-    author='Will McGinnis',
+    author='snn1337 contributors',
     install_requires=install_requires,
     dependency_links=dependency_links,
     author_email=''
