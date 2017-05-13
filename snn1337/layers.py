@@ -1,4 +1,4 @@
-import connection
+from snn1337.connection import *
 import numpy as np
 
 from multiprocessing import Pool

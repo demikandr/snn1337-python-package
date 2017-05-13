@@ -1,6 +1,7 @@
-from setuptools import setup, find_packages
+from setuptools import setup, find_packages, Extension
 from codecs import open
 from os import path
+from Cython.Build import cythonize
 
 __version__ = '0.0.1'
 
@@ -36,5 +37,10 @@ setup(
     author='snn1337 contributors',
     install_requires=install_requires,
     dependency_links=dependency_links,
-    author_email=''
+    author_email='',
+    ext_modules=cythonize([Extension(
+        "snn1337.neuron",
+        sources=["snn1337/neuron.pyx"],
+        language="c++"
+    )])
 )

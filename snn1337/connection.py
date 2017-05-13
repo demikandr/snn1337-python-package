@@ -1,20 +1,20 @@
-from neuron import *
+from snn1337.neuron import *
 
 class InputNeuron(object):
-    
+
     def __init__(self, nnet, spike_train):
         self.spike_train = spike_train
         self.output_spikes_times = []
         self.net = nnet
-        
+
     def set_spike_train(self, spike_train):
         self.spike_train = spike_train
         self.output_spikes_times = []
-        
+
     def step(self):
         if self.spike_train[self.net.global_time] == 1:
             self.output_spikes_times.append(self.net.global_time)
-    
+
     def get_spikes(self):
         return self.output_spikes_times
 
