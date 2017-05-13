@@ -41,7 +41,7 @@ setup(
     dependency_links=dependency_links,
     author_email='',
     ext_modules=[Extension(
-        "snn1337.cython.neuron",
+        "snn1337.neuron",
         sources=["snn1337/cython/neuron.cpp"],
         language="c++"
     )]
