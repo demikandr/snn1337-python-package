@@ -39,9 +39,9 @@ setup(
     install_requires=install_requires,
     dependency_links=dependency_links,
     author_email='',
-    ext_modules=cythonize([Extension(
+    ext_modules=[Extension(
         "snn1337.neuron",
         sources=["snn1337/neuron.cpp"],
         language="c++"
-    )])
+    )]
 )
