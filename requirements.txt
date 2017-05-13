@@ -1,3 +1,4 @@
 # Dev/Deployment
 numpy
+theano
 lasagne
