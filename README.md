@@ -11,15 +11,14 @@ spiking neural network framework
 Installation / Usage
 --------------------
 
-To install use pip:
+To install use pip(is not available yet):
 
     $ pip install snn1337
 
 
-Or clone the repo:
+Or from repo:
 
-    $ git clone https://github.com/demikandr/snn1337.git
-    $ python setup.py install
+    $ git install https://github.com/demikandr/snn1337-python-package/archive/master.zip
     
 Contributing
 ------------
