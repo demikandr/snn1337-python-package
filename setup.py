@@ -3,7 +3,6 @@ from setuptools import setup, Extension
 from setuptools import find_packages
 from codecs import open
 from os import path
-from Cython.Build import cythonize
 
 __version__ = '0.0.1'
 
