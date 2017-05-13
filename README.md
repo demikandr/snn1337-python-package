@@ -18,12 +18,11 @@ To install use pip(is not available yet):
 From repo with pip:
 
     $ git install https://github.com/demikandr/snn1337-python-package/archive/master.zip
-    +Or from repo:
 
-From repo with setup.py:
+From repo if you're going to develop the package:
   		  
     $ git clone https://github.com/demikandr/snn1337-python-package.git
-    $ python setup.py install		
+    $ sudo pip install -e .	
     
 Contributing
 ------------
