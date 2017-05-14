@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/demikandr/snn1337-python-package.svg?branch=master)](https://travis-ci.org/demikandr/snn1337-python-package)
+
 Spiking Neural Network 1337
 ===============================
 
