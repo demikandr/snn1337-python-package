@@ -31,6 +31,7 @@ setup(
       'Development Status :: 3 - Alpha',
       'Intended Audience :: Developers',
       'Programming Language :: Python :: 3',
+      'Programming Language :: Python :: 2'
     ],
     keywords='',
     packages=find_packages(exclude=['docs', 'tests*']),
@@ -41,7 +42,7 @@ setup(
     author_email='',
     ext_modules=[Extension(
         "snn1337.neuron",
-        sources=["snn1337/neuron.cpp"],
+        sources=["snn1337/cython/neuron.cpp"],
         language="c++"
     )]
 )
