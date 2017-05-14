@@ -66,7 +66,6 @@ class Connection(object):
         tau_plus = self.tau_plus
         sigma = self.sigma
         
-        # для каждого синапса нужно поменять его вес
         for j in range(len(weights)):
             for i, tau_pre in enumerate(input_spikes):
                 #####################
