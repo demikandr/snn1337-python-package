@@ -45,7 +45,7 @@ class InputLayer(object):
 
 class Conv2DLayer(object):
     def __init__(self, nnet, input_layer, num_filters, filter_shape, weights, threshold=1.):
-	self.type = "Conv2DLayer"
+        self.type = "Conv2DLayer"
         self.net = nnet
         self.filter_shape = filter_shape
         self.weights = self.oldweights = weights.copy() 
