@@ -424,7 +424,6 @@ static struct __pyx_vtabstruct_6neuron_Neuron *__pyx_vtabptr_6neuron_Neuron;
 <pre class="cython line score-0">&#xA0;<span class="">017</span>: </pre>
 <pre class="cython line score-3" onclick='toggleDiv(this)'>+<span class="">018</span>:     <span class="k">cdef</span> <span class="nf">_cinit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">double</span> <span class="n">threshold</span><span class="p">):</span></pre>
 <pre class='cython code score-3 '>static PyObject *__pyx_f_6neuron_6Neuron__cinit__(struct __pyx_obj_6neuron_Neuron *__pyx_v_self, double __pyx_v_threshold) {
-  CYTHON_UNUSED long __pyx_v_global_time;
   PyObject *__pyx_r = NULL;
   <span class='trace'>__Pyx_TraceDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
@@ -457,8 +456,8 @@ static struct __pyx_vtabstruct_6neuron_Neuron *__pyx_vtabptr_6neuron_Neuron;
 <pre class='cython code score-0 '>  __pyx_v_self-&gt;time_scale = 1.0;
 </pre><pre class="cython line score-0" onclick='toggleDiv(this)'>+<span class="">025</span>:         <span class="bp">self</span><span class="o">.</span><span class="n">last_output_spikes_time</span> <span class="o">=</span> <span class="mf">0</span></pre>
 <pre class='cython code score-0 '>  __pyx_v_self-&gt;last_output_spikes_time = 0;
-</pre><pre class="cython line score-0" onclick='toggleDiv(this)'>+<span class="">026</span>:         <span class="n">global_time</span> <span class="o">=</span> <span class="mf">0</span></pre>
-<pre class='cython code score-0 '>  __pyx_v_global_time = 0;
+</pre><pre class="cython line score-0" onclick='toggleDiv(this)'>+<span class="">026</span>:         <span class="bp">self</span><span class="o">.</span><span class="n">global_time</span> <span class="o">=</span> <span class="mf">0</span></pre>
+<pre class='cython code score-0 '>  __pyx_v_self-&gt;global_time = 0;
 </pre><pre class="cython line score-0">&#xA0;<span class="">027</span>: </pre>
 <pre class="cython line score-2" onclick='toggleDiv(this)'>+<span class="">028</span>:     <span class="k">cdef</span> <span class="kt">void</span> <span class="nf">_receive_spike</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">double</span> <span class="n">intensity</span><span class="p">,</span> <span class="nb">int</span> <span class="n">global_time</span><span class="p">):</span></pre>
 <pre class='cython code score-2 '>static void __pyx_f_6neuron_6Neuron__receive_spike(struct __pyx_obj_6neuron_Neuron *__pyx_v_self, double __pyx_v_intensity, int __pyx_v_global_time) {
@@ -491,7 +490,6 @@ static struct __pyx_vtabstruct_6neuron_Neuron *__pyx_vtabptr_6neuron_Neuron;
 </pre><pre class="cython line score-0">&#xA0;<span class="">030</span>: </pre>
 <pre class="cython line score-2" onclick='toggleDiv(this)'>+<span class="">031</span>:     <span class="k">cdef</span> <span class="kt">void</span> <span class="nf">_restart</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></pre>
 <pre class='cython code score-2 '>static void __pyx_f_6neuron_6Neuron__restart(struct __pyx_obj_6neuron_Neuron *__pyx_v_self) {
-  CYTHON_UNUSED long __pyx_v_global_time;
   <span class='trace'>__Pyx_TraceDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("_restart", 0);
@@ -515,8 +513,8 @@ static struct __pyx_vtabstruct_6neuron_Neuron *__pyx_vtabptr_6neuron_Neuron;
 <pre class='cython code score-0 '>  __pyx_v_self-&gt;history.clear();
 </pre><pre class="cython line score-0" onclick='toggleDiv(this)'>+<span class="">036</span>:         <span class="bp">self</span><span class="o">.</span><span class="n">last_output_spikes_time</span> <span class="o">=</span> <span class="mf">0</span></pre>
 <pre class='cython code score-0 '>  __pyx_v_self-&gt;last_output_spikes_time = 0;
-</pre><pre class="cython line score-0" onclick='toggleDiv(this)'>+<span class="">037</span>:         <span class="n">global_time</span> <span class="o">=</span> <span class="mf">0</span></pre>
-<pre class='cython code score-0 '>  __pyx_v_global_time = 0;
+</pre><pre class="cython line score-0" onclick='toggleDiv(this)'>+<span class="">037</span>:         <span class="bp">self</span><span class="o">.</span><span class="n">global_time</span> <span class="o">=</span> <span class="mf">0</span></pre>
+<pre class='cython code score-0 '>  __pyx_v_self-&gt;global_time = 0;
 </pre><pre class="cython line score-0">&#xA0;<span class="">038</span>: </pre>
 <pre class="cython line score-2" onclick='toggleDiv(this)'>+<span class="">039</span>:     <span class="k">cdef</span> <span class="kt">void</span> <span class="nf">_step</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></pre>
 <pre class='cython code score-2 '>static void __pyx_f_6neuron_6Neuron__step(struct __pyx_obj_6neuron_Neuron *__pyx_v_self) {
@@ -540,22 +538,20 @@ static struct __pyx_vtabstruct_6neuron_Neuron *__pyx_vtabptr_6neuron_Neuron;
 </pre><pre class="cython line score-0" onclick='toggleDiv(this)'>+<span class="">040</span>:         <span class="k">cdef</span> <span class="kt">int</span> <span class="nf">global_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">global_time</span></pre>
 <pre class='cython code score-0 '>  __pyx_t_1 = __pyx_v_self-&gt;global_time;
   __pyx_v_global_time = __pyx_t_1;
-</pre><pre class="cython line score-0" onclick='toggleDiv(this)'>+<span class="">041</span>:         <span class="bp">self</span><span class="o">.</span><span class="n">potential</span> <span class="o">=</span> <span class="mf">0</span></pre>
-<pre class='cython code score-0 '>  __pyx_v_self-&gt;potential = 0.0;
-</pre><pre class="cython line score-0">&#xA0;<span class="">042</span>:         <span class="k">cdef</span> <span class="kt">int</span> <span class="nf">spike_time</span></pre>
-<pre class="cython line score-0">&#xA0;<span class="">043</span>:         <span class="k">cdef</span> <span class="kt">double</span> <span class="nf">intensity</span></pre>
-<pre class="cython line score-0">&#xA0;<span class="">044</span>: </pre>
-<pre class="cython line score-0" onclick='toggleDiv(this)'>+<span class="">045</span>:         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_spikes</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span></pre>
+</pre><pre class="cython line score-0">&#xA0;<span class="">041</span>:         <span class="k">cdef</span> <span class="kt">int</span> <span class="nf">spike_time</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">042</span>:         <span class="k">cdef</span> <span class="kt">double</span> <span class="nf">intensity</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">043</span>: </pre>
+<pre class="cython line score-0" onclick='toggleDiv(this)'>+<span class="">044</span>:         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_spikes</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span></pre>
 <pre class='cython code score-0 '>  __pyx_t_2 = __pyx_v_self-&gt;input_spikes.size();
   for (__pyx_t_3 = 0; __pyx_t_3 &lt; __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
-</pre><pre class="cython line score-0" onclick='toggleDiv(this)'>+<span class="">046</span>:             <span class="n">spike_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_spikes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">first</span></pre>
+</pre><pre class="cython line score-0" onclick='toggleDiv(this)'>+<span class="">045</span>:             <span class="n">spike_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_spikes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">first</span></pre>
 <pre class='cython code score-0 '>    __pyx_t_1 = (__pyx_v_self-&gt;input_spikes[__pyx_v_i]).first;
     __pyx_v_spike_time = __pyx_t_1;
-</pre><pre class="cython line score-0" onclick='toggleDiv(this)'>+<span class="">047</span>:             <span class="n">intensity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_spikes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">second</span></pre>
+</pre><pre class="cython line score-0" onclick='toggleDiv(this)'>+<span class="">046</span>:             <span class="n">intensity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_spikes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">second</span></pre>
 <pre class='cython code score-0 '>    __pyx_t_4 = (__pyx_v_self-&gt;input_spikes[__pyx_v_i]).second;
     __pyx_v_intensity = __pyx_t_4;
-</pre><pre class="cython line score-0" onclick='toggleDiv(this)'>+<span class="">048</span>:             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_scale</span> <span class="o">*</span> <span class="p">(</span><span class="n">global_time</span> <span class="o">-</span> <span class="n">spike_time</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">30</span> <span class="ow">and</span> <span class="p">(</span><span class="n">fabs</span><span class="p">(</span><span class="n">intensity</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.0001</span><span class="p">):</span></pre>
+</pre><pre class="cython line score-0" onclick='toggleDiv(this)'>+<span class="">047</span>:             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_scale</span> <span class="o">*</span> <span class="p">(</span><span class="n">global_time</span> <span class="o">-</span> <span class="n">spike_time</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">30</span> <span class="ow">and</span> <span class="p">(</span><span class="n">fabs</span><span class="p">(</span><span class="n">intensity</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.0001</span><span class="p">):</span></pre>
 <pre class='cython code score-0 '>    __pyx_t_6 = (((__pyx_v_self-&gt;time_scale * (__pyx_v_global_time - __pyx_v_spike_time)) &lt; 30.0) != 0);
     if (__pyx_t_6) {
     } else {
@@ -569,26 +565,28 @@ static struct __pyx_vtabstruct_6neuron_Neuron *__pyx_vtabptr_6neuron_Neuron;
 /* … */
     }
   }
-</pre><pre class="cython line score-0" onclick='toggleDiv(this)'>+<span class="">049</span>:                 <span class="bp">self</span><span class="o">.</span><span class="n">potential</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eps</span><span class="p">(</span><span class="n">global_time</span> <span class="o">-</span> <span class="n">spike_time</span><span class="p">)</span> <span class="o">*</span> <span class="n">intensity</span></pre>
+</pre><pre class="cython line score-0" onclick='toggleDiv(this)'>+<span class="">048</span>:                 <span class="bp">self</span><span class="o">.</span><span class="n">potential</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eps</span><span class="p">(</span><span class="n">global_time</span> <span class="o">-</span> <span class="n">spike_time</span><span class="p">)</span> <span class="o">*</span> <span class="n">intensity</span></pre>
 <pre class='cython code score-0 '>      __pyx_v_self-&gt;potential = (__pyx_v_self-&gt;potential + (((struct __pyx_vtabstruct_6neuron_Neuron *)__pyx_v_self-&gt;__pyx_vtab)-&gt;_eps(__pyx_v_self, (__pyx_v_global_time - __pyx_v_spike_time)) * __pyx_v_intensity));
-</pre><pre class="cython line score-0">&#xA0;<span class="">050</span>: </pre>
-<pre class="cython line score-0" onclick='toggleDiv(this)'>+<span class="">051</span>:         <span class="bp">self</span><span class="o">.</span><span class="n">potential</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nu</span><span class="p">(</span><span class="n">global_time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_output_spikes_time</span><span class="p">)</span></pre>
+</pre><pre class="cython line score-0">&#xA0;<span class="">049</span>: </pre>
+<pre class="cython line score-0" onclick='toggleDiv(this)'>+<span class="">050</span>:         <span class="bp">self</span><span class="o">.</span><span class="n">potential</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nu</span><span class="p">(</span><span class="n">global_time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_output_spikes_time</span><span class="p">)</span></pre>
 <pre class='cython code score-0 '>  __pyx_v_self-&gt;potential = (__pyx_v_self-&gt;potential + ((struct __pyx_vtabstruct_6neuron_Neuron *)__pyx_v_self-&gt;__pyx_vtab)-&gt;_nu(__pyx_v_self, (__pyx_v_global_time - __pyx_v_self-&gt;last_output_spikes_time)));
-</pre><pre class="cython line score-0" onclick='toggleDiv(this)'>+<span class="">052</span>:         <span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="o">.</span><span class="n">push_back</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">potential</span><span class="p">)</span></pre>
+</pre><pre class="cython line score-0" onclick='toggleDiv(this)'>+<span class="">051</span>:         <span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="o">.</span><span class="n">push_back</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">potential</span><span class="p">)</span></pre>
 <pre class='cython code score-0 '>  try {
     __pyx_v_self-&gt;history.push_back(__pyx_v_self-&gt;potential);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 52, __pyx_L1_error)
+    __PYX_ERR(0, 51, __pyx_L1_error)
   }
-</pre><pre class="cython line score-0">&#xA0;<span class="">053</span>: </pre>
-<pre class="cython line score-0" onclick='toggleDiv(this)'>+<span class="">054</span>:         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">potential</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">threshold</span><span class="p">:</span></pre>
+</pre><pre class="cython line score-0">&#xA0;<span class="">052</span>: </pre>
+<pre class="cython line score-0" onclick='toggleDiv(this)'>+<span class="">053</span>:         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">potential</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">threshold</span><span class="p">:</span></pre>
 <pre class='cython code score-0 '>  __pyx_t_5 = ((__pyx_v_self-&gt;potential &gt; __pyx_v_self-&gt;threshold) != 0);
   if (__pyx_t_5) {
 /* … */
   }
-</pre><pre class="cython line score-0" onclick='toggleDiv(this)'>+<span class="">055</span>:             <span class="bp">self</span><span class="o">.</span><span class="n">input_spikes</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></pre>
+</pre><pre class="cython line score-0" onclick='toggleDiv(this)'>+<span class="">054</span>:             <span class="bp">self</span><span class="o">.</span><span class="n">input_spikes</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></pre>
 <pre class='cython code score-0 '>    __pyx_v_self-&gt;input_spikes.clear();
+</pre><pre class="cython line score-0" onclick='toggleDiv(this)'>+<span class="">055</span>:             <span class="bp">self</span><span class="o">.</span><span class="n">potential</span> <span class="o">=</span> <span class="mf">0</span></pre>
+<pre class='cython code score-0 '>    __pyx_v_self-&gt;potential = 0.0;
 </pre><pre class="cython line score-0" onclick='toggleDiv(this)'>+<span class="">056</span>:             <span class="bp">self</span><span class="o">.</span><span class="n">output_spikes_times</span><span class="o">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">global_time</span><span class="p">)</span></pre>
 <pre class='cython code score-0 '>    try {
       __pyx_v_self-&gt;output_spikes_times.push_back(__pyx_v_global_time);
@@ -598,8 +596,8 @@ static struct __pyx_vtabstruct_6neuron_Neuron *__pyx_vtabptr_6neuron_Neuron;
     }
 </pre><pre class="cython line score-0" onclick='toggleDiv(this)'>+<span class="">057</span>:             <span class="bp">self</span><span class="o">.</span><span class="n">last_output_spikes_time</span> <span class="o">=</span> <span class="n">global_time</span></pre>
 <pre class='cython code score-0 '>    __pyx_v_self-&gt;last_output_spikes_time = __pyx_v_global_time;
-</pre><pre class="cython line score-0" onclick='toggleDiv(this)'>+<span class="">058</span>:         <span class="n">global_time</span> <span class="o">+=</span> <span class="mf">1</span></pre>
-<pre class='cython code score-0 '>  __pyx_v_global_time = (__pyx_v_global_time + 1);
+</pre><pre class="cython line score-0" onclick='toggleDiv(this)'>+<span class="">058</span>:         <span class="bp">self</span><span class="o">.</span><span class="n">global_time</span> <span class="o">+=</span> <span class="mf">1</span></pre>
+<pre class='cython code score-0 '>  __pyx_v_self-&gt;global_time = (__pyx_v_self-&gt;global_time + 1);
 </pre><pre class="cython line score-0">&#xA0;<span class="">059</span>: </pre>
 <pre class="cython line score-2" onclick='toggleDiv(this)'>+<span class="">060</span>:     <span class="k">cdef</span> <span class="kt">double</span> <span class="nf">_eps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">int</span> <span class="n">time</span><span class="p">):</span></pre>
 <pre class='cython code score-2 '>static double __pyx_f_6neuron_6Neuron__eps(struct __pyx_obj_6neuron_Neuron *__pyx_v_self, int __pyx_v_time) {

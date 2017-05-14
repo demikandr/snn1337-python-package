@@ -40,7 +40,6 @@ class InputLayer(object):
             neur.step()
 
 class Conv2DLayer(object):
-    # Формат весов: w[nk][h][i][j], где nk - фильтр, h - номер фильтра на предыдущем слое, i, j - координаты весов в фильтре
     def __init__(self, nnet, input_layer, num_filters, filter_shape, weights, threshold=1.):
         self.net = nnet
         self.filter_shape = filter_shape
@@ -103,7 +102,6 @@ class SubSampling2DLayer(object):
 
 # pool = ThreadPool(5)
 class DenseLayer(object):
-    #Формат весов: w[i][j],  где i - номер нейрона на предыдущем слое, j - номер нейрона на текущем слое
     def __init__(self,nnet, input_layer, num_units, weights, threshold=1.):
         self.net = nnet
         self.shape = [num_units]
@@ -149,11 +147,11 @@ class NNet(object):
             threshold = self.threshold
         self.layers.append(SubSampling2DLayer(self, self.layers[-1], pool_size, threshold=self.threshold))
         
-    def add_dense(self, weights, bias, threshold=-1):
+    def add_dense(self, weights, threshold=-1):
         if(threshold == -1):
             threshold = self.threshold
         num_units = weights.shape[1]
-        self.layers.append(DenseLayer(self, self.layers[-1], num_units, weights, bias, threshold=threshold))
+        self.layers.append(DenseLayer(self, self.layers[-1], num_units, weights, threshold=threshold))
     
     def get_output_for(self, data, t_max):
         self.global_time = 0

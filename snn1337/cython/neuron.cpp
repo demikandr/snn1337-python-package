@@ -1183,7 +1183,6 @@ static PyObject *__pyx_float_1_;
  */
 
 static PyObject *__pyx_f_6neuron_6Neuron__cinit__(struct __pyx_obj_6neuron_Neuron *__pyx_v_self, double __pyx_v_threshold) {
-  CYTHON_UNUSED long __pyx_v_global_time;
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -1240,7 +1239,7 @@ static PyObject *__pyx_f_6neuron_6Neuron__cinit__(struct __pyx_obj_6neuron_Neuro
  *         self.tau_r = 20
  *         self.time_scale = 1 # time unit is 100 ms             # <<<<<<<<<<<<<<
  *         self.last_output_spikes_time = 0
- *         global_time = 0
+ *         self.global_time = 0
  */
   __pyx_v_self->time_scale = 1.0;
 
@@ -1248,7 +1247,7 @@ static PyObject *__pyx_f_6neuron_6Neuron__cinit__(struct __pyx_obj_6neuron_Neuro
  *         self.tau_r = 20
  *         self.time_scale = 1 # time unit is 100 ms
  *         self.last_output_spikes_time = 0             # <<<<<<<<<<<<<<
- *         global_time = 0
+ *         self.global_time = 0
  * 
  */
   __pyx_v_self->last_output_spikes_time = 0;
@@ -1256,11 +1255,11 @@ static PyObject *__pyx_f_6neuron_6Neuron__cinit__(struct __pyx_obj_6neuron_Neuro
   /* "neuron.pyx":26
  *         self.time_scale = 1 # time unit is 100 ms
  *         self.last_output_spikes_time = 0
- *         global_time = 0             # <<<<<<<<<<<<<<
+ *         self.global_time = 0             # <<<<<<<<<<<<<<
  * 
  *     cdef void _receive_spike(self, double intensity, int global_time):
  */
-  __pyx_v_global_time = 0;
+  __pyx_v_self->global_time = 0;
 
   /* "neuron.pyx":18
  *     cdef vector[double] history
@@ -1284,7 +1283,7 @@ static PyObject *__pyx_f_6neuron_6Neuron__cinit__(struct __pyx_obj_6neuron_Neuro
 }
 
 /* "neuron.pyx":28
- *         global_time = 0
+ *         self.global_time = 0
  * 
  *     cdef void _receive_spike(self, double intensity, int global_time):             # <<<<<<<<<<<<<<
  *         self.input_spikes.push_back(pair[int,double](global_time, intensity))
@@ -1319,7 +1318,7 @@ static void __pyx_f_6neuron_6Neuron__receive_spike(struct __pyx_obj_6neuron_Neur
   }
 
   /* "neuron.pyx":28
- *         global_time = 0
+ *         self.global_time = 0
  * 
  *     cdef void _receive_spike(self, double intensity, int global_time):             # <<<<<<<<<<<<<<
  *         self.input_spikes.push_back(pair[int,double](global_time, intensity))
@@ -1344,7 +1343,6 @@ static void __pyx_f_6neuron_6Neuron__receive_spike(struct __pyx_obj_6neuron_Neur
  */
 
 static void __pyx_f_6neuron_6Neuron__restart(struct __pyx_obj_6neuron_Neuron *__pyx_v_self) {
-  CYTHON_UNUSED long __pyx_v_global_time;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("_restart", 0);
@@ -1382,7 +1380,7 @@ static void __pyx_f_6neuron_6Neuron__restart(struct __pyx_obj_6neuron_Neuron *__
  *         self.input_spikes.clear()
  *         self.history.clear()             # <<<<<<<<<<<<<<
  *         self.last_output_spikes_time = 0
- *         global_time = 0
+ *         self.global_time = 0
  */
   __pyx_v_self->history.clear();
 
@@ -1390,7 +1388,7 @@ static void __pyx_f_6neuron_6Neuron__restart(struct __pyx_obj_6neuron_Neuron *__
  *         self.input_spikes.clear()
  *         self.history.clear()
  *         self.last_output_spikes_time = 0             # <<<<<<<<<<<<<<
- *         global_time = 0
+ *         self.global_time = 0
  * 
  */
   __pyx_v_self->last_output_spikes_time = 0;
@@ -1398,11 +1396,11 @@ static void __pyx_f_6neuron_6Neuron__restart(struct __pyx_obj_6neuron_Neuron *__
   /* "neuron.pyx":37
  *         self.history.clear()
  *         self.last_output_spikes_time = 0
- *         global_time = 0             # <<<<<<<<<<<<<<
+ *         self.global_time = 0             # <<<<<<<<<<<<<<
  * 
  *     cdef void _step(self):
  */
-  __pyx_v_global_time = 0;
+  __pyx_v_self->global_time = 0;
 
   /* "neuron.pyx":31
  *         self.input_spikes.push_back(pair[int,double](global_time, intensity))
@@ -1422,11 +1420,11 @@ static void __pyx_f_6neuron_6Neuron__restart(struct __pyx_obj_6neuron_Neuron *__
 }
 
 /* "neuron.pyx":39
- *         global_time = 0
+ *         self.global_time = 0
  * 
  *     cdef void _step(self):             # <<<<<<<<<<<<<<
  *         cdef int global_time = self.global_time
- *         self.potential = 0
+ *         cdef int spike_time
  */
 
 static void __pyx_f_6neuron_6Neuron__step(struct __pyx_obj_6neuron_Neuron *__pyx_v_self) {
@@ -1449,22 +1447,13 @@ static void __pyx_f_6neuron_6Neuron__step(struct __pyx_obj_6neuron_Neuron *__pyx
  * 
  *     cdef void _step(self):
  *         cdef int global_time = self.global_time             # <<<<<<<<<<<<<<
- *         self.potential = 0
  *         cdef int spike_time
+ *         cdef double intensity
  */
   __pyx_t_1 = __pyx_v_self->global_time;
   __pyx_v_global_time = __pyx_t_1;
 
-  /* "neuron.pyx":41
- *     cdef void _step(self):
- *         cdef int global_time = self.global_time
- *         self.potential = 0             # <<<<<<<<<<<<<<
- *         cdef int spike_time
- *         cdef double intensity
- */
-  __pyx_v_self->potential = 0.0;
-
-  /* "neuron.pyx":45
+  /* "neuron.pyx":44
  *         cdef double intensity
  * 
  *         for i in range(self.input_spikes.size()):             # <<<<<<<<<<<<<<
@@ -1475,7 +1464,7 @@ static void __pyx_f_6neuron_6Neuron__step(struct __pyx_obj_6neuron_Neuron *__pyx
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "neuron.pyx":46
+    /* "neuron.pyx":45
  * 
  *         for i in range(self.input_spikes.size()):
  *             spike_time = self.input_spikes[i].first             # <<<<<<<<<<<<<<
@@ -1485,7 +1474,7 @@ static void __pyx_f_6neuron_6Neuron__step(struct __pyx_obj_6neuron_Neuron *__pyx
     __pyx_t_1 = (__pyx_v_self->input_spikes[__pyx_v_i]).first;
     __pyx_v_spike_time = __pyx_t_1;
 
-    /* "neuron.pyx":47
+    /* "neuron.pyx":46
  *         for i in range(self.input_spikes.size()):
  *             spike_time = self.input_spikes[i].first
  *             intensity = self.input_spikes[i].second             # <<<<<<<<<<<<<<
@@ -1495,7 +1484,7 @@ static void __pyx_f_6neuron_6Neuron__step(struct __pyx_obj_6neuron_Neuron *__pyx
     __pyx_t_4 = (__pyx_v_self->input_spikes[__pyx_v_i]).second;
     __pyx_v_intensity = __pyx_t_4;
 
-    /* "neuron.pyx":48
+    /* "neuron.pyx":47
  *             spike_time = self.input_spikes[i].first
  *             intensity = self.input_spikes[i].second
  *             if self.time_scale * (global_time - spike_time) < 30 and (fabs(intensity) > 0.0001):             # <<<<<<<<<<<<<<
@@ -1513,7 +1502,7 @@ static void __pyx_f_6neuron_6Neuron__step(struct __pyx_obj_6neuron_Neuron *__pyx
     __pyx_L6_bool_binop_done:;
     if (__pyx_t_5) {
 
-      /* "neuron.pyx":49
+      /* "neuron.pyx":48
  *             intensity = self.input_spikes[i].second
  *             if self.time_scale * (global_time - spike_time) < 30 and (fabs(intensity) > 0.0001):
  *                 self.potential += self._eps(global_time - spike_time) * intensity             # <<<<<<<<<<<<<<
@@ -1522,7 +1511,7 @@ static void __pyx_f_6neuron_6Neuron__step(struct __pyx_obj_6neuron_Neuron *__pyx
  */
       __pyx_v_self->potential = (__pyx_v_self->potential + (((struct __pyx_vtabstruct_6neuron_Neuron *)__pyx_v_self->__pyx_vtab)->_eps(__pyx_v_self, (__pyx_v_global_time - __pyx_v_spike_time)) * __pyx_v_intensity));
 
-      /* "neuron.pyx":48
+      /* "neuron.pyx":47
  *             spike_time = self.input_spikes[i].first
  *             intensity = self.input_spikes[i].second
  *             if self.time_scale * (global_time - spike_time) < 30 and (fabs(intensity) > 0.0001):             # <<<<<<<<<<<<<<
@@ -1532,7 +1521,7 @@ static void __pyx_f_6neuron_6Neuron__step(struct __pyx_obj_6neuron_Neuron *__pyx
     }
   }
 
-  /* "neuron.pyx":51
+  /* "neuron.pyx":50
  *                 self.potential += self._eps(global_time - spike_time) * intensity
  * 
  *         self.potential += self._nu(global_time - self.last_output_spikes_time)             # <<<<<<<<<<<<<<
@@ -1541,7 +1530,7 @@ static void __pyx_f_6neuron_6Neuron__step(struct __pyx_obj_6neuron_Neuron *__pyx
  */
   __pyx_v_self->potential = (__pyx_v_self->potential + ((struct __pyx_vtabstruct_6neuron_Neuron *)__pyx_v_self->__pyx_vtab)->_nu(__pyx_v_self, (__pyx_v_global_time - __pyx_v_self->last_output_spikes_time)));
 
-  /* "neuron.pyx":52
+  /* "neuron.pyx":51
  * 
  *         self.potential += self._nu(global_time - self.last_output_spikes_time)
  *         self.history.push_back(self.potential)             # <<<<<<<<<<<<<<
@@ -1552,34 +1541,43 @@ static void __pyx_f_6neuron_6Neuron__step(struct __pyx_obj_6neuron_Neuron *__pyx
     __pyx_v_self->history.push_back(__pyx_v_self->potential);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 52, __pyx_L1_error)
+    __PYX_ERR(0, 51, __pyx_L1_error)
   }
 
-  /* "neuron.pyx":54
+  /* "neuron.pyx":53
  *         self.history.push_back(self.potential)
  * 
  *         if self.potential > self.threshold:             # <<<<<<<<<<<<<<
  *             self.input_spikes.clear()
- *             self.output_spikes_times.push_back(global_time)
+ *             self.potential = 0
  */
   __pyx_t_5 = ((__pyx_v_self->potential > __pyx_v_self->threshold) != 0);
   if (__pyx_t_5) {
 
-    /* "neuron.pyx":55
+    /* "neuron.pyx":54
  * 
  *         if self.potential > self.threshold:
  *             self.input_spikes.clear()             # <<<<<<<<<<<<<<
+ *             self.potential = 0
  *             self.output_spikes_times.push_back(global_time)
- *             self.last_output_spikes_time = global_time
  */
     __pyx_v_self->input_spikes.clear();
 
-    /* "neuron.pyx":56
+    /* "neuron.pyx":55
  *         if self.potential > self.threshold:
  *             self.input_spikes.clear()
+ *             self.potential = 0             # <<<<<<<<<<<<<<
+ *             self.output_spikes_times.push_back(global_time)
+ *             self.last_output_spikes_time = global_time
+ */
+    __pyx_v_self->potential = 0.0;
+
+    /* "neuron.pyx":56
+ *             self.input_spikes.clear()
+ *             self.potential = 0
  *             self.output_spikes_times.push_back(global_time)             # <<<<<<<<<<<<<<
  *             self.last_output_spikes_time = global_time
- *         global_time += 1
+ *         self.global_time += 1
  */
     try {
       __pyx_v_self->output_spikes_times.push_back(__pyx_v_global_time);
@@ -1589,38 +1587,38 @@ static void __pyx_f_6neuron_6Neuron__step(struct __pyx_obj_6neuron_Neuron *__pyx
     }
 
     /* "neuron.pyx":57
- *             self.input_spikes.clear()
+ *             self.potential = 0
  *             self.output_spikes_times.push_back(global_time)
  *             self.last_output_spikes_time = global_time             # <<<<<<<<<<<<<<
- *         global_time += 1
+ *         self.global_time += 1
  * 
  */
     __pyx_v_self->last_output_spikes_time = __pyx_v_global_time;
 
-    /* "neuron.pyx":54
+    /* "neuron.pyx":53
  *         self.history.push_back(self.potential)
  * 
  *         if self.potential > self.threshold:             # <<<<<<<<<<<<<<
  *             self.input_spikes.clear()
- *             self.output_spikes_times.push_back(global_time)
+ *             self.potential = 0
  */
   }
 
   /* "neuron.pyx":58
  *             self.output_spikes_times.push_back(global_time)
  *             self.last_output_spikes_time = global_time
- *         global_time += 1             # <<<<<<<<<<<<<<
+ *         self.global_time += 1             # <<<<<<<<<<<<<<
  * 
  *     cdef double _eps(self, int time):
  */
-  __pyx_v_global_time = (__pyx_v_global_time + 1);
+  __pyx_v_self->global_time = (__pyx_v_self->global_time + 1);
 
   /* "neuron.pyx":39
- *         global_time = 0
+ *         self.global_time = 0
  * 
  *     cdef void _step(self):             # <<<<<<<<<<<<<<
  *         cdef int global_time = self.global_time
- *         self.potential = 0
+ *         cdef int spike_time
  */
 
   /* function exit code */
@@ -1633,7 +1631,7 @@ static void __pyx_f_6neuron_6Neuron__step(struct __pyx_obj_6neuron_Neuron *__pyx
 }
 
 /* "neuron.pyx":60
- *         global_time += 1
+ *         self.global_time += 1
  * 
  *     cdef double _eps(self, int time):             # <<<<<<<<<<<<<<
  *         if time <= 0:
@@ -1708,7 +1706,7 @@ static double __pyx_f_6neuron_6Neuron__eps(struct __pyx_obj_6neuron_Neuron *__py
   goto __pyx_L0;
 
   /* "neuron.pyx":60
- *         global_time += 1
+ *         self.global_time += 1
  * 
  *     cdef double _eps(self, int time):             # <<<<<<<<<<<<<<
  *         if time <= 0:
@@ -2568,7 +2566,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 45, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 44, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
