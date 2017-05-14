@@ -1,4 +1,5 @@
 
+from snn1337.layers import *
 import lasagne
 
 def spiking_from_lasagne(input_net, threshold):
