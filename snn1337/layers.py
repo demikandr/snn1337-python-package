@@ -19,6 +19,7 @@ def get_fixed_frequency_spike_train(frequency, t_max):
 from functools import reduce
 class InputLayer(object):
     def __init__(self, nnet, shape):
+        self.type = "InputLayer"
         self.net = nnet
         self.shape = shape 
         self.neur_size = reduce(lambda res, x: res*x, self.shape, 1)
@@ -36,10 +37,14 @@ class InputLayer(object):
     def step(self):
         for neur in self.neurons.reshape((self.neur_size)):
             neur.step()
+            
+    def learning(self):
+        pass
 
 class Conv2DLayer(object):
     # Формат весов: w[nk][h][i][j], где nk - фильтр, h - номер фильтра на предыдущем слое, i, j - координаты весов в фильтре
     def __init__(self, nnet, input_layer, num_filters, filter_shape, weights):
+        self.type = "Conv2DLayer"
         self.net = nnet
         self.filter_shape = filter_shape
         self.weights = self.oldweights = weights.copy() 
@@ -58,6 +63,19 @@ class Conv2DLayer(object):
                     self.connections += [Connection(self.net, input_layer.neurons[l][i+p][j+q],neuron, self.weights[nk][l][p][q])\
                                          for l in np.arange(input_layer.shape[0]) for p in np.arange(filter_shape[0])\
                                          for q in np.arange(filter_shape[1])] 
+    
+    # возвращает веса слоя
+    def get_weights(self):
+        weights = []
+        for conn in self.connections:
+            weights.append(conn.weights)
+        return weights
+        
+    # устанавливает веса слоя
+    def set_weights(self, weights):
+        assert(len(self.connections) == len(weights))
+        for i in range(len(weights)):
+            self.connections[i].weights = weights[i]
                     
     def restart(self):
         for i, neur in enumerate(self.neurons.reshape((self.neur_size))):
@@ -68,9 +86,14 @@ class Conv2DLayer(object):
             conn.step()
         for i, neur in enumerate(self.neurons.reshape((self.neur_size))):
             neur.step()
+            
+    def learning(self):
+        for conn in self.connections:
+            conn.STDP_step()
 
 class SubSampling2DLayer(object):
     def __init__(self, nnet, input_layer, pool_size):
+        self.type = "SubSampling2DLayer"
         self.net = nnet
         self.pool_size = pool_size
         self.shape = input_layer.shape // np.append([1], pool_size)
@@ -98,11 +121,15 @@ class SubSampling2DLayer(object):
             conn.step()
         for neur in self.neurons.reshape((self.neur_size)):
             neur.step()
+            
+    def learning(self):
+        pass
 
 # pool = ThreadPool(5)
 class DenseLayer(object):
     #Формат весов: w[i][j],  где i - номер нейрона на предыдущем слое, j - номер нейрона на текущем слое
     def __init__(self,nnet, input_layer, num_units, weights, threshold=1.):
+        self.type = "DenseLayer"
         self.net = nnet
         self.shape = [num_units]
         self.neur_size = num_units
@@ -115,6 +142,18 @@ class DenseLayer(object):
         self.connections = [Connection(self.net, input_neuron, output_neuron, weights[i][j])\
                             for i, input_neuron in enumerate(input_layer.neurons.reshape((input_layer.neur_size)))\
                             for j, output_neuron in enumerate(self.neurons)]
+    # возвращает веса слоя
+    def get_weights(self):
+        weights = []
+        for conn in self.connections:
+            weights.append(conn.weights)
+        return weights
+        
+    # устанавливает веса слоя
+    def set_weights(self, weights):
+        assert(len(self.connections) == len(weights))
+        for i in range(len(weights)):
+            self.connections[i].weights = weights[i]
         
     def restart(self):
         for neur in self.neurons:
@@ -127,6 +166,10 @@ class DenseLayer(object):
         list(map(lambda x: x.step(), self.neurons)) # POOL
         #for neur in self.neurons:
             #neur.step()
+            
+    def learning(self):
+        for conn in self.connections:
+            conn.STDP_step()
 
 # pool1 = ThreadPool(4)
 class NNet(object):
@@ -177,6 +220,26 @@ class NNet(object):
                 return ans, t
             self.global_time += 1
         print('not_enough_time')
+        
+    def learning(self):
+        for layer in self.layers:
+            layer.learning()
+     
+     # забирает веса у слоёв с параметрами
+    def get_all_params_values(self):
+        weights = []
+        for layer in self.layers:
+            if layer.type not in ["InputLayer", "Conv2DLayer"]: 
+                weights.append(layer.get_weights())
+        return weights
+    
+    # устанавливает веса для слоёв с параметрами
+    def set_all_params_values(self, weights):
+        layer_with_weights_index = 0
+        for layer in self.layers:
+            if layer.type not in ["InputLayer", "Conv2DLayer"] and layer_with_weights_index < len(weights): 
+                layer.set_weights(wights[layer_with_weights_index])
+                layer_with_weights_index += 1
 
 import lasagne
 
