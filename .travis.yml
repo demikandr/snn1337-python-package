@@ -4,6 +4,7 @@ python:
   - "3.6"
   - "2.7"
 install:
-  "pip install -r requirements.txt"
+  - "pip install -r requirements.txt"
+  - "travis_retry python setup.py dev"
 script:
   pytest
