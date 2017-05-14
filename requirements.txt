@@ -1,4 +1,2 @@
 # Dev/Deployment
 numpy
-theano
-git+ssh://git@github.com/Lasagne/Lasagne.git
