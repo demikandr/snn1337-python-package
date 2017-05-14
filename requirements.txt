@@ -1,4 +1,4 @@
 # Dev/Deployment
 numpy
 theano
--e git://github.com/Lasagne/Lasagne.git#egg=lasagne
+git+ssh://git@github.com/Lasagne/Lasagne.git
