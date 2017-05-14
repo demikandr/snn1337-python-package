@@ -1,3 +1,5 @@
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
 from snn1337.neuron import *
 import numpy as np
 

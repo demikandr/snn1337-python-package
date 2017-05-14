@@ -3,7 +3,7 @@ from snn1337.layers import *
 import lasagne
 
 
-def spiking_from_lasagne(input_net, threshold=[1.]):
+def spiking_from_lasagne(input_net, threshold=1.):
     input_layers = lasagne.layers.get_all_layers(input_net)
     weights = lasagne.layers.get_all_param_values(input_net)
     spiking_net = NNet(input_layers[0].shape[-3:], threshold)
