@@ -59,9 +59,9 @@ class InputLayer(Layer):
                 for k, m in enumerate(l):
                     self.neurons[i][j][k].set_spike_train(get_fixed_frequency_spike_train(arg[i][j][k], t_max))
 
-class Conv2DLayer(Layer):
+class Conv2DLayer(object):
+    def __init__(self, nnet, input_layer, num_filters, filter_shape, weights, threshold=1.):
     # Формат весов: w[nk][h][i][j], где nk - фильтр, h - номер фильтра на предыдущем слое, i, j - координаты весов в фильтре
-    def __init__(self, nnet, input_layer, num_filters, filter_shape, weights):
         self.net = nnet
         self.filter_shape = filter_shape
         self.weights = self.oldweights = weights.copy() 
@@ -70,7 +70,7 @@ class Conv2DLayer(Layer):
         
         self.shape = (num_filters, input_layer.shape[1]-filter_shape[0]+1, input_layer.shape[2]-filter_shape[1]+1)
         self.neur_size = reduce(lambda res, x: res*x, self.shape, 1)
-        self.neurons = np.array([Neuron(self.net, i) for i in np.arange(self.neur_size)]).reshape(self.shape)
+        self.neurons = np.array([Neuron(self.net, i, threshold=threshold) for i in np.arange(self.neur_size)]).reshape(self.shape)
         
         self.connections = []
         
@@ -82,12 +82,12 @@ class Conv2DLayer(Layer):
                                          for q in np.arange(filter_shape[1])]
 
 class SubSampling2DLayer(Layer):
-    def __init__(self, nnet, input_layer, pool_size):
+    def __init__(self, nnet, input_layer, pool_size, threshold=1.):
         self.net = nnet
         self.pool_size = pool_size
         self.shape = input_layer.shape // np.append([1], pool_size)
         self.neur_size = reduce(lambda res, x: res*x, self.shape, 1)
-        self.neurons = np.array([Neuron(self.net, i) for i in np.arange(self.neur_size)]).reshape(self.shape)
+        self.neurons = np.array([Neuron(self.net, i, threshold=threshold) for i in np.arange(self.neur_size)]).reshape(self.shape)
         
         self.conn_weight = 1 / (pool_size[0] * pool_size[1])
         
@@ -125,18 +125,24 @@ class NNet(object):
         self.layers = [InputLayer(self, shape)]
         self.global_time = 0
         self.threshold = threshold
-    
-    def add_convolution(self, weights):
+
+    def add_convolution(self, weights, threshold=-1):
+        if(threshold == -1):
+            threshold = self.threshold
         num_filters = weights.shape[0]
         filter_shape = weights.shape[2:4]
-        self.layers.append(Conv2DLayer(self, self.layers[-1], num_filters, filter_shape, weights))
+        self.layers.append(Conv2DLayer(self, self.layers[-1], num_filters, filter_shape, weights, threshold=threshold))
         
-    def add_subsampling(self, pool_size):
-        self.layers.append(SubSampling2DLayer(self, self.layers[-1], pool_size))
+    def add_subsampling(self, pool_size, threshold=-1):
+        if(threshold == -1):
+            threshold = self.threshold
+        self.layers.append(SubSampling2DLayer(self, self.layers[-1], pool_size, threshold=self.threshold))
         
-    def add_dense(self, weights):
+    def add_dense(self, weights, threshold=-1):
+        if(threshold == -1):
+            threshold = self.threshold
         num_units = weights.shape[1]
-        self.layers.append(DenseLayer(self, self.layers[-1], num_units, weights, threshold=self.threshold))
+        self.layers.append(DenseLayer(self, self.layers[-1], num_units, weights, threshold=threshold))
     
     def get_output_for(self, data, t_max):
         self.global_time = 0

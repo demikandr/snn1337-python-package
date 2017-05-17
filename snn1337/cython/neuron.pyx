@@ -13,6 +13,7 @@ cdef class Neuron(object):
     cdef int last_output_spikes_time, global_time, id
     cdef vector[int] output_spikes_times
     cdef vector[pairID] input_spikes
+    cdef vector[double] history
     
     cdef _cinit__(self, const int id, double threshold):
         self.potential = 0
@@ -23,7 +24,7 @@ cdef class Neuron(object):
         self.time_scale = 1 # time unit is 100 ms
         self.last_output_spikes_time = 0
         self.id = id
-        global_time = 0
+        self.global_time = 0
     
     cdef void _receive_spike(self, double intensity, int global_time):
         self.input_spikes.push_back(pair[int,double](global_time, intensity))
@@ -32,12 +33,12 @@ cdef class Neuron(object):
         self.potential = 0
         self.output_spikes_times.clear()
         self.input_spikes.clear()
+        self.history.clear()
         self.last_output_spikes_time = 0
-        global_time = 0
+        self.global_time = 0
     
     cdef void _step(self):
         cdef int global_time = self.global_time
-        self.potential = 0
         cdef int spike_time
         cdef double intensity
             
@@ -48,12 +49,14 @@ cdef class Neuron(object):
                 self.potential += self._eps(global_time - spike_time) * intensity
 
         self.potential += self._nu(global_time - self.last_output_spikes_time)
+        self.history.push_back(self.potential)
 
         if self.potential > self.threshold:
             self.input_spikes.clear()
+            self.potential = 0
             self.output_spikes_times.push_back(global_time)
             self.last_output_spikes_time = global_time
-        global_time += 1
+        self.global_time += 1
     
     cdef double _eps(self, int time):
         if time <= 0:
@@ -72,9 +75,12 @@ cdef class Neuron(object):
     cdef vector[int] _get_spikes(self):
         return self.output_spikes_times
 
+    cdef vector[double] _get_history(self):
+        return self.history
+
     def __init__(self, nnet, id, threshold=1.):
         self._cinit__(id, threshold)
-        
+
     def restart(self):
         self._restart()
     
@@ -86,6 +92,8 @@ cdef class Neuron(object):
         
     def get_spikes(self):
         return self._get_spikes()
+    def get_history(self):
+        return self._get_history()
 
     def get_id(self):
         return self.id
