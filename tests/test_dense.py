@@ -2,10 +2,10 @@ import numpy as np
 import theano.tensor as T
 import lasagne
 from snn1337.spiking_from_lasagne import spiking_from_lasagne
-from mnist import load_dataset
 import pytest
 
-def prepare_lasagne_network():
+@pytest.fixture
+def lasagne_dense_network():
     input_X = T.tensor4("X")
     input_shape = [None,1,28,28]
     target_y = T.vector("target Y integer",dtype='int32')
@@ -24,21 +24,21 @@ def prepare_lasagne_network():
                                             nonlinearity = lasagne.nonlinearities.softmax,
                                             name='output', b=None)
 
-    with np.load('dense_weights.npz') as f:
-        param_values = [f['arr_%d' % i] * 10 for i in range(len(f.files))]
-        for i in param_values[-1]:
-            for j in i:
-                j = abs(j)
-        for i in param_values:
-            for j in i:
-                for k, n in enumerate(j):
-                    if (n < 0.000001):
-                        j[k] = 0.0
+    # with np.load('dense_weights.npz') as f:
+    #     param_values = [f['arr_%d' % i] * 10 for i in range(len(f.files))]
+    #     for i in param_values[-1]:
+    #         for j in i:
+    #             j = abs(j)
+    #     for i in param_values:
+    #         for j in i:
+    #             for k, n in enumerate(j):
+    #                 if (n < 0.000001):
+    #                     j[k] = 0.0
+    #
+    # lasagne.layers.set_all_param_values(dense_output, param_values)
+    return dense_output
 
-    lasagne.layers.set_all_param_values(dense_output, param_values)
-
-def test_dense():
-    X_train,y_train,X_val,y_val,X_test,y_test = load_dataset()
-    lasagne_net = prepare_lasagne_network()
-    spiking_net = spiking_from_lasagne(lasagne_net, 1.375)
-    output = spiking_net.get_output_for(X_train[1], 39)
+def test_create_dense(lasagne_dense_network):
+    # X_train,y_train,X_val,y_val,X_test,y_test = load_dataset()
+    spiking_net = spiking_from_lasagne(lasagne_dense_network, [1.375])
+    # output = spiking_net.get_output_for(X_train[1], 39)
