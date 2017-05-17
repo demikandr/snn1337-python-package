@@ -1169,6 +1169,7 @@ static PyObject *__pyx_pf_6neuron_6Neuron_2restart(struct __pyx_obj_6neuron_Neur
 static PyObject *__pyx_pf_6neuron_6Neuron_4receive_spike(struct __pyx_obj_6neuron_Neuron *__pyx_v_self, PyObject *__pyx_v_intensity); /* proto */
 static PyObject *__pyx_pf_6neuron_6Neuron_6step(struct __pyx_obj_6neuron_Neuron *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6neuron_6Neuron_8get_spikes(struct __pyx_obj_6neuron_Neuron *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6neuron_6Neuron_10get_id(struct __pyx_obj_6neuron_Neuron *__pyx_v_self); /* proto */
 static PyObject *__pyx_tp_new_6neuron_Neuron(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_float_1_;
 
@@ -2181,7 +2182,7 @@ static PyObject *__pyx_pf_6neuron_6Neuron_8get_spikes(struct __pyx_obj_6neuron_N
  *     def get_spikes(self):
  *         return self._get_spikes()             # <<<<<<<<<<<<<<
  * 
- * 
+ *     def get_id(self):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = __pyx_convert_vector_to_py_int(((struct __pyx_vtabstruct_6neuron_Neuron *)__pyx_v_self->__pyx_vtab)->_get_spikes(__pyx_v_self)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 88, __pyx_L1_error)
@@ -2202,6 +2203,69 @@ static PyObject *__pyx_pf_6neuron_6Neuron_8get_spikes(struct __pyx_obj_6neuron_N
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_AddTraceback("neuron.Neuron.get_spikes", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_TraceReturn(__pyx_r, 0);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "neuron.pyx":90
+ *         return self._get_spikes()
+ * 
+ *     def get_id(self):             # <<<<<<<<<<<<<<
+ *         return self.id
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_6neuron_6Neuron_11get_id(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_6neuron_6Neuron_11get_id(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("get_id (wrapper)", 0);
+  __pyx_r = __pyx_pf_6neuron_6Neuron_10get_id(((struct __pyx_obj_6neuron_Neuron *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_6neuron_6Neuron_10get_id(struct __pyx_obj_6neuron_Neuron *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_TraceDeclarations
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("get_id", 0);
+  __Pyx_TraceCall("get_id", __pyx_f[0], 90, 0, __PYX_ERR(0, 90, __pyx_L1_error));
+
+  /* "neuron.pyx":91
+ * 
+ *     def get_id(self):
+ *         return self.id             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->id); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 91, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "neuron.pyx":90
+ *         return self._get_spikes()
+ * 
+ *     def get_id(self):             # <<<<<<<<<<<<<<
+ *         return self.id
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("neuron.Neuron.get_id", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2307,6 +2371,7 @@ static PyMethodDef __pyx_methods_6neuron_Neuron[] = {
   {"receive_spike", (PyCFunction)__pyx_pw_6neuron_6Neuron_5receive_spike, METH_O, 0},
   {"step", (PyCFunction)__pyx_pw_6neuron_6Neuron_7step, METH_NOARGS, 0},
   {"get_spikes", (PyCFunction)__pyx_pw_6neuron_6Neuron_9get_spikes, METH_NOARGS, 0},
+  {"get_id", (PyCFunction)__pyx_pw_6neuron_6Neuron_11get_id, METH_NOARGS, 0},
   {0, 0, 0, 0}
 };
 

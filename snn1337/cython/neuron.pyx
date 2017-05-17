@@ -87,6 +87,9 @@ cdef class Neuron(object):
     def get_spikes(self):
         return self._get_spikes()
 
+    def get_id(self):
+        return self.id
+
     
 
 # cdef class _Connection(object):

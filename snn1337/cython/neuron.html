@@ -932,41 +932,81 @@ static PyObject *__pyx_pf_6neuron_6Neuron_8get_spikes(struct __pyx_obj_6neuron_N
   __pyx_t_1 = 0;
   goto __pyx_L0;
 </pre><pre class="cython line score-0">&#xA0;<span class="">089</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">090</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">091</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">092</span>: <span class="c"># cdef class _Connection(object):</span></pre>
-<pre class="cython line score-0">&#xA0;<span class="">093</span>: <span class="c">#     cdef int last_conducted_spike_index</span></pre>
-<pre class="cython line score-0">&#xA0;<span class="">094</span>: <span class="c">#     cdef vector[double] weights</span></pre>
-<pre class="cython line score-0">&#xA0;<span class="">095</span>: <span class="c">#     cdef vector[int] delays</span></pre>
-<pre class="cython line score-0">&#xA0;<span class="">096</span>: <span class="c">#     cdef Neuron output_neuron</span></pre>
-<pre class="cython line score-0">&#xA0;<span class="">097</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">098</span>: <span class="c">#     def __init__(self, output_neuron, weights=[1], delays=[1]):  # weights and delays are scaled</span></pre>
-<pre class="cython line score-0">&#xA0;<span class="">099</span>: <span class="c">#         self.weights = weights</span></pre>
-<pre class="cython line score-0">&#xA0;<span class="">100</span>: <span class="c">#         self.delays = delays</span></pre>
-<pre class="cython line score-0">&#xA0;<span class="">101</span>: <span class="c">#         self.output_neuron = output_neuron</span></pre>
-<pre class="cython line score-0">&#xA0;<span class="">102</span>: <span class="c">#         self.last_conducted_spike_index = 0</span></pre>
-<pre class="cython line score-0">&#xA0;<span class="">103</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">104</span>: <span class="c">#     def step(self, spikes, global_time):</span></pre>
-<pre class="cython line score-0">&#xA0;<span class="">105</span>: <span class="c">#         self._step(spikes, global_time)</span></pre>
+<pre class="cython line score-3" onclick='toggleDiv(this)'>+<span class="">090</span>:     <span class="k">def</span> <span class="nf">get_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></pre>
+<pre class='cython code score-3 '>/* Python wrapper */
+static PyObject *__pyx_pw_6neuron_6Neuron_11get_id(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_6neuron_6Neuron_11get_id(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
+  <span class='refnanny'>__Pyx_RefNannySetupContext</span>("get_id (wrapper)", 0);
+  __pyx_r = __pyx_pf_6neuron_6Neuron_10get_id(((struct __pyx_obj_6neuron_Neuron *)__pyx_v_self));
+
+  /* function exit code */
+  <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_6neuron_6Neuron_10get_id(struct __pyx_obj_6neuron_Neuron *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  <span class='trace'>__Pyx_TraceDeclarations</span>
+  <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
+  <span class='refnanny'>__Pyx_RefNannySetupContext</span>("get_id", 0);
+  <span class='trace'>__Pyx_TraceCall</span>("get_id", __pyx_f[0], 90, 0, __PYX_ERR(0, 90, __pyx_L1_error));
+/* … */
+  /* function exit code */
+  __pyx_L1_error:;
+  <span class='pyx_macro_api'>__Pyx_XDECREF</span>(__pyx_t_1);
+  <span class='pyx_c_api'>__Pyx_AddTraceback</span>("neuron.Neuron.get_id", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  <span class='refnanny'>__Pyx_XGIVEREF</span>(__pyx_r);
+  <span class='trace'>__Pyx_TraceReturn</span>(__pyx_r, 0);
+  <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
+  return __pyx_r;
+}
+</pre><pre class="cython line score-3" onclick='toggleDiv(this)'>+<span class="">091</span>:         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span></pre>
+<pre class='cython code score-3 '>  <span class='pyx_macro_api'>__Pyx_XDECREF</span>(__pyx_r);
+  __pyx_t_1 = <span class='pyx_c_api'>__Pyx_PyInt_From_int</span>(__pyx_v_self-&gt;id); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 91, __pyx_L1_error)
+  <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+</pre><pre class="cython line score-0">&#xA0;<span class="">092</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">093</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">094</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">095</span>: <span class="c"># cdef class _Connection(object):</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">096</span>: <span class="c">#     cdef int last_conducted_spike_index</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">097</span>: <span class="c">#     cdef vector[double] weights</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">098</span>: <span class="c">#     cdef vector[int] delays</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">099</span>: <span class="c">#     cdef Neuron output_neuron</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">100</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">101</span>: <span class="c">#     def __init__(self, output_neuron, weights=[1], delays=[1]):  # weights and delays are scaled</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">102</span>: <span class="c">#         self.weights = weights</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">103</span>: <span class="c">#         self.delays = delays</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">104</span>: <span class="c">#         self.output_neuron = output_neuron</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">105</span>: <span class="c">#         self.last_conducted_spike_index = 0</span></pre>
 <pre class="cython line score-0">&#xA0;<span class="">106</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">107</span>: <span class="c">#     cdef void _step(self, vector[int]&amp; spikes, int global_time):</span></pre>
-<pre class="cython line score-0">&#xA0;<span class="">108</span>: <span class="c">#         cdef int spike_time</span></pre>
-<pre class="cython line score-0">&#xA0;<span class="">109</span>: <span class="c">#         for i in range(self.last_conducted_spike_index, spikes.size()):</span></pre>
-<pre class="cython line score-0">&#xA0;<span class="">110</span>: <span class="c">#             spike_time = spikes[i]</span></pre>
-<pre class="cython line score-0">&#xA0;<span class="">111</span>: <span class="c">#             for j in range(self.weights.size()):</span></pre>
-<pre class="cython line score-0">&#xA0;<span class="">112</span>: <span class="c">#                 if spike_time + self.delays[j] == global_time:</span></pre>
-<pre class="cython line score-0">&#xA0;<span class="">113</span>: <span class="c">#                     self.last_conducted_spike_index += 1</span></pre>
-<pre class="cython line score-0">&#xA0;<span class="">114</span>: <span class="c">#                     self.output_neuron._receive_spike(self.weights[j], global_time)</span></pre>
-<pre class="cython line score-0">&#xA0;<span class="">115</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">116</span>: <span class="c"># class Connection(object):</span></pre>
-<pre class="cython line score-0">&#xA0;<span class="">117</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">118</span>: <span class="c">#     def __init__(self, nnet, input_neuron, output_neuron,</span></pre>
-<pre class="cython line score-0">&#xA0;<span class="">119</span>: <span class="c">#                  weights=[1], delays=[1]):  # weights and delays are scaled</span></pre>
-<pre class="cython line score-0">&#xA0;<span class="">120</span>: <span class="c">#         self.cConnection = _Connection(output_neuron, weights, delays)</span></pre>
-<pre class="cython line score-0">&#xA0;<span class="">121</span>: <span class="c">#         self.input_neuron = input_neuron</span></pre>
-<pre class="cython line score-0">&#xA0;<span class="">122</span>: <span class="c">#         self.net = nnet</span></pre>
-<pre class="cython line score-0">&#xA0;<span class="">123</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">124</span>: <span class="c">#     def step(self):</span></pre>
-<pre class="cython line score-0">&#xA0;<span class="">125</span>: <span class="c">#         spikes = self.input_neuron.get_spikes()</span></pre>
-<pre class="cython line score-0">&#xA0;<span class="">126</span>: <span class="c">#         self.cConnection.step(spikes, self.net.global_time)</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">107</span>: <span class="c">#     def step(self, spikes, global_time):</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">108</span>: <span class="c">#         self._step(spikes, global_time)</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">109</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">110</span>: <span class="c">#     cdef void _step(self, vector[int]&amp; spikes, int global_time):</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">111</span>: <span class="c">#         cdef int spike_time</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">112</span>: <span class="c">#         for i in range(self.last_conducted_spike_index, spikes.size()):</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">113</span>: <span class="c">#             spike_time = spikes[i]</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">114</span>: <span class="c">#             for j in range(self.weights.size()):</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">115</span>: <span class="c">#                 if spike_time + self.delays[j] == global_time:</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">116</span>: <span class="c">#                     self.last_conducted_spike_index += 1</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">117</span>: <span class="c">#                     self.output_neuron._receive_spike(self.weights[j], global_time)</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">118</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">119</span>: <span class="c"># class Connection(object):</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">120</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">121</span>: <span class="c">#     def __init__(self, nnet, input_neuron, output_neuron,</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">122</span>: <span class="c">#                  weights=[1], delays=[1]):  # weights and delays are scaled</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">123</span>: <span class="c">#         self.cConnection = _Connection(output_neuron, weights, delays)</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">124</span>: <span class="c">#         self.input_neuron = input_neuron</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">125</span>: <span class="c">#         self.net = nnet</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">126</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">127</span>: <span class="c">#     def step(self):</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">128</span>: <span class="c">#         spikes = self.input_neuron.get_spikes()</span></pre>
+<pre class="cython line score-0">&#xA0;<span class="">129</span>: <span class="c">#         self.cConnection.step(spikes, self.net.global_time)</span></pre>
 </div></body></html>
