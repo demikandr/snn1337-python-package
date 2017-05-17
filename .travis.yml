@@ -9,6 +9,7 @@ addons:
       - george-edison55-precise-backports
     packages:
       - libopenblas-dev
+      - liblapack-dev
 install:
   - "pip install -r requirements.txt"
   - "travis_retry python setup.py develop"
