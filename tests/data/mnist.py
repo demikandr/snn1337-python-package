@@ -30,14 +30,14 @@ import lasagne
 
 def load_dataset():
     # We first define a download function, supporting both Python 2 and 3.
-    # if sys.version_info[0] == 2:
-    #     from urllib import urlretrieve
-    # else:
-    #     from urllib.request import urlretrieve
-    #
-    # def download(filename, source='http://yann.lecun.com/exdb/mnist/'):
-    #     print("Downloading %s" % filename)
-    #     urlretrieve(source + filename, filename)
+    if sys.version_info[0] == 2:
+        from urllib import urlretrieve
+    else:
+        from urllib.request import urlretrieve
+
+    def download(filename, source='http://yann.lecun.com/exdb/mnist/'):
+        print("Downloading %s" % filename)
+        urlretrieve(source + filename, filename)
 
     # We then define functions for loading MNIST images and labels.
     # For convenience, they also download the requested files if needed.

@@ -25,7 +25,7 @@ def lasagne_dense_network():
                                             nonlinearity = lasagne.nonlinearities.softmax,
                                             name='output', b=None)
 
-    with np.load('data/dense_weights.npz') as f:
+    with np.load('tests/data/dense_weights.npz') as f:
         param_values = [f['arr_%d' % i] * 10 for i in range(len(f.files))]
         for i in param_values[-1]:
             for j in i:
