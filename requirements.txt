@@ -1,2 +1,5 @@
 # Dev/Deployment
 numpy
+theano >= 0.8.2
+-e git+https://github.com/Lasagne/Lasagne.git@5f3631e0058915ab19132b9650c3eb2ebe9c6817#egg=Lasagne
+
