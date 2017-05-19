@@ -45,3 +45,5 @@ output/
 dist/
 **/*.html
 
+# Cache
+.cache/
