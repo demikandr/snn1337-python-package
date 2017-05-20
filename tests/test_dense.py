@@ -32,11 +32,13 @@ def get_output_dense():
     spiking_net = spiking_from_lasagne(lasagne_dense_network(), [1.5])
     return spiking_net.get_output_for(X_train[2], 90)
 
+
 def test_create_dense():
     output = get_output_dense()
     canon = pickle.load(open('tests/data/output_dense', 'rb'))
     assert(canon == output)
 
+
 def canonize_create_dense():
     output = get_output_dense()
-    pickle.dump(output, open('tests/data/output_dense', 'wb'))
+    pickle.dump(output, open('tests/data/output_dense', 'wb'), protocol=2)
