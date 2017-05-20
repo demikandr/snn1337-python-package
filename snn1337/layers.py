@@ -22,6 +22,7 @@ def get_fixed_frequency_spike_train(frequency, t_max):
         actual_frequency += frequency
     return result
 
+
 class Layer(object):
     connections = None
     neurons = None
@@ -42,6 +43,7 @@ class Layer(object):
     def get_connections_description(self):
         return [{'source':conn.inp.get_id(), 'dest':conn.out.get_id()} for conn in self.connections]
 
+
 class InputLayer(Layer):
     def __init__(self, nnet, shape):
         self.net = nnet
@@ -58,6 +60,7 @@ class InputLayer(Layer):
             for j, l in enumerate(f):
                 for k, m in enumerate(l):
                     self.neurons[i][j][k].set_spike_train(get_fixed_frequency_spike_train(arg[i][j][k], t_max))
+
 
 class Conv2DLayer(object):
     def __init__(self, nnet, input_layer, num_filters, filter_shape, weights, threshold=1.):
@@ -80,6 +83,7 @@ class Conv2DLayer(object):
                     self.connections += [Connection(self.net, input_layer.neurons[l][i+p][j+q],neuron, self.weights[nk][l][p][q])\
                                          for l in np.arange(input_layer.shape[0]) for p in np.arange(filter_shape[0])\
                                          for q in np.arange(filter_shape[1])]
+
 
 class SubSampling2DLayer(Layer):
     def __init__(self, nnet, input_layer, pool_size, threshold=1.):
