@@ -43,3 +43,7 @@ output/
 
 # Dist
 dist/
+
+# Cache
+.cache/
+
