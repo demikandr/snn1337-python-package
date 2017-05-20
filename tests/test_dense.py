@@ -4,7 +4,7 @@ import lasagne
 from snn1337.spiking_from_lasagne import spiking_from_lasagne
 import pytest
 from tests.data.mnist import load_dataset
-import time
+import pickle
 
 @pytest.fixture
 def lasagne_dense_network():
@@ -26,7 +26,17 @@ def lasagne_dense_network():
     lasagne.layers.set_all_param_values(net, param_values)
     return net
 
-def test_create_dense(lasagne_dense_network):
+
+def get_output_dense():
     X_train = load_dataset()
-    spiking_net = spiking_from_lasagne(lasagne_dense_network, [1.5])
-    print(spiking_net.get_output_for(X_train[2], 90))
+    spiking_net = spiking_from_lasagne(lasagne_dense_network(), [1.5])
+    return spiking_net.get_output_for(X_train[2], 90)
+
+def test_create_dense():
+    output = get_output_dense()
+    canon = pickle.load(open('tests/data/output_dense', 'rb'))
+    assert(canon == output)
+
+def canonize_create_dense():
+    output = get_output_dense()
+    pickle.dump(output, open('tests/data/output_dense', 'wb'))
