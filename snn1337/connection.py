@@ -24,7 +24,7 @@ class InputNeuron(object):
 
 class Connection(object):
     def __init__(self, nnet, input_neuron, output_neuron, weights=[1], delays=[1],
-                etta=4, tau_min=6, tau_plus=3, sigma=0.1):  # weights and delays are scaled
+                etta=4, tau_min=5, tau_plus=3, sigma=0.1):  # weights and delays are scaled
         self.weights = weights
         self.delays = delays
         self.input_neuron = input_neuron
@@ -47,13 +47,12 @@ class Connection(object):
                     self.last_conducted_spike_index += 1
                     self.output_neuron.receive_spike(self.weights[j])
     
-    ############################
+    ############################ http://machinelearning.wustl.edu/mlpapers/paper_files/IM11.pdf
     def STDP_step(self):
-        output_spikes = np.array(self.output_neuron.get_spikes())
-        input_spikes = np.array(self.input_neuron.get_spikes())
         weights = np.array(self.weights)
-        w_max = weights.max()
-        w_min = weights.min()
+        input_spikes = np.array(self.input_neuron.get_spikes())
+        output_spikes = np.array(self.output_neuron.get_spikes())
+        
         out_spikes_num = len(output_spikes)
         
         if out_spikes_num <= 0:
@@ -69,15 +68,17 @@ class Connection(object):
         sigma = self.sigma
         
         for j in range(len(weights)):
-            for i, tau_pre in enumerate(input_spikes):
+            for tau_pre in input_spikes:
                 #####################
-                if (tau_pre > tau_post_after):
+                while (tau_pre > tau_post_after and out_ind < out_spikes_num - 1):
                     tau_post_before = tau_post_after
                     if (out_ind < out_spikes_num - 1):
                         out_ind += 1
                         tau_post_after = output_spikes[out_ind]
                     else:
                         tau_post_after = 0
+                if (out_ind >= out_spikes_num - 1):
+                    break
                 
                 if (0 <= tau_pre-tau_post_after <= tau_min):
                     delta_w = -1.0*etta*(tau_min-(tau_pre-tau_post_after))
@@ -86,13 +87,4 @@ class Connection(object):
                 else:
                     delta_w = 0
                     
-                if (0 <= tau_pre-tau_post_before <=tau_min):
-                    delta_w -= etta*(tau_min-(tau_pre-tau_post_before))
-                elif (-1.*tau_plus <= tau_pre-tau_post_before <= 0):
-                    delta_w += etta*(tau_plus+(tau_pre-tau_post_before))
-
-                w_old = self.weights[j]
-                if (delta_w > 0):
-                    self.weights[j] = w_old + sigma*delta_w*(w_max - w_old)
-                else:
-                    self.weights[j] = w_old + sigma*delta_w*(w_old - w_min)
+                self.weights[j] += sigma*delta_w

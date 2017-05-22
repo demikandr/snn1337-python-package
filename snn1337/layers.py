@@ -31,10 +31,11 @@ class InputLayer(object):
         return sps.bernoulli.rvs(0.25*freq +0.5, size=t_max)
     
     def new_input(self, arg, t_max=1000, make_spike_train=get_fixed_frequency_spike_train):
+        if (make_spike_train == None): make_spike_train=get_fixed_frequency_spike_train
         for i, f in enumerate(arg):
             for j, l in enumerate(f):
                 for k, m in enumerate(l):
-                    self.neurons[i][j][k].set_spike_train(get_fixed_frequency_spike_train(arg[i][j][k], t_max))
+                    self.neurons[i][j][k].set_spike_train(make_spike_train(arg[i][j][k], t_max))
     
     def step(self):
         for neur in self.neurons.reshape((self.neur_size)):
@@ -197,9 +198,9 @@ class NNet(object):
         num_units = weights.shape[1]
         self.layers.append(DenseLayer(self, self.layers[-1], num_units, weights, threshold=threshold))
     
-    def get_output_for(self, data, t_max):
+    def get_output_for(self, data, t_max, make_spike_train=None):
         self.global_time = 0
-        self.layers[0].new_input(data, t_max)
+        self.layers[0].new_input(arg=data, t_max=t_max, make_spike_train=make_spike_train)
         for l in self.layers[1:]:
             l.restart()
         for t in np.arange(t_max):
@@ -210,9 +211,9 @@ class NNet(object):
         result = [neur.get_spikes() for neur in self.layers[-1].neurons.reshape((self.layers[-1].neur_size))]
         return result
     
-    def classify(self, data, t_max):
+    def classify(self, data, t_max, make_spike_train=None):
         self.global_time = 0
-        self.layers[0].new_input(data)
+        self.layers[0].new_input(arg=data, t_max=t_max, make_spike_train=make_spike_train)
         for l in self.layers[1:]:
             l.restart()
         ans = []
@@ -245,6 +246,6 @@ class NNet(object):
         layer_with_weights_index = 0
         for layer in self.layers:
             if layer.type not in ["InputLayer", "Conv2DLayer"] and layer_with_weights_index < len(weights): 
-                layer.set_weights(wights[layer_with_weights_index])
+                layer.set_weights(weights[layer_with_weights_index])
                 layer_with_weights_index += 1
 
