@@ -2,10 +2,11 @@ from snn1337.neuron import *
 
 class InputNeuron(object):
 
-    def __init__(self, nnet, spike_train):
+    def __init__(self, nnet, id, spike_train):
         self.spike_train = spike_train
         self.output_spikes_times = []
         self.net = nnet
+        self.id = id
 
     def set_spike_train(self, spike_train):
         self.spike_train = spike_train
@@ -17,6 +18,9 @@ class InputNeuron(object):
 
     def get_spikes(self):
         return self.output_spikes_times
+
+    def get_id(self):
+        return self.id
 
 
 class Connection(object):

@@ -10,12 +10,12 @@ ctypedef pair[int,double] pairID
 cdef class Neuron(object):
     
     cdef double potential, tau_m, tau_s, tau_r, time_scale, threshold
-    cdef int last_output_spikes_time, global_time
+    cdef int last_output_spikes_time, global_time, id
     cdef vector[int] output_spikes_times
     cdef vector[pairID] input_spikes
     cdef vector[double] history
     
-    cdef _cinit__(self, double threshold):
+    cdef _cinit__(self, const int id, double threshold):
         self.potential = 0
         self.threshold = threshold
         self.tau_m = 4
@@ -23,6 +23,7 @@ cdef class Neuron(object):
         self.tau_r = 20
         self.time_scale = 1 # time unit is 100 ms
         self.last_output_spikes_time = 0
+        self.id = id
         self.global_time = 0
     
     cdef void _receive_spike(self, double intensity, int global_time):
@@ -77,9 +78,9 @@ cdef class Neuron(object):
     cdef vector[double] _get_history(self):
         return self.history
 
-    def __init__(self, nnet, threshold=1.):
-        self._cinit__(threshold)
-        
+    def __init__(self, nnet, id, threshold=1.):
+        self._cinit__(id, threshold)
+
     def restart(self):
         self._restart()
     
@@ -93,6 +94,9 @@ cdef class Neuron(object):
         return self._get_spikes()
     def get_history(self):
         return self._get_history()
+
+    def get_id(self):
+        return self.id
 
     
 
